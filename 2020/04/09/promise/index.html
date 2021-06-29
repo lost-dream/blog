@@ -1,0 +1,483 @@
+<!DOCTYPE html><html class="theme-next gemini use-motion" lang="zh-Hans"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="theme-color" content="#222"><script src="/blog/lib/pace/pace.min.js?v=1.0.2"></script><link href="/blog/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"><link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/blog/css/main.css?v=5.1.2" rel="stylesheet" type="text/css"><meta name="keywords" content="es6,promise,"><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.png?v=5.1.2"><meta name="description" content="面试中常被问起promise，在这里总结一下"><meta name="keywords" content="es6,promise"><meta property="og:type" content="article"><meta property="og:title" content="promise 详解"><meta property="og:url" content="https://13623673118.github.io/blog/2020/04/09/promise/index.html"><meta property="og:site_name" content="赵晨敏的博客"><meta property="og:description" content="面试中常被问起promise，在这里总结一下"><meta property="og:locale" content="zh-Hans"><meta property="og:updated_time" content="2021-06-29T00:17:16.182Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="promise 详解"><meta name="twitter:description" content="面试中常被问起promise，在这里总结一下"><script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script><link rel="canonical" href="https://13623673118.github.io/blog/2020/04/09/promise/"><title>promise 详解 | 赵晨敏的博客</title></head><body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"><div class="container sidebar-position-right page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta "><div class="custom-logo-site-title"><a href="/blog/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">赵晨敏的博客</span><span class="logo-line-after"><i></i></span></a></div><p class="site-subtitle">赵晨敏</p></div><div class="site-nav-toggle"> <button><span class="btn-bar"></span><span class="btn-bar"></span><span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"> <a href="/blog/" rel="section">我的首页</a></li><li class="menu-item menu-item-archives"> <a href="/blog/archives" rel="section">所有文章</a></li><li class="menu-item menu-item-categories"> <a href="/blog/categories" rel="section">文章分类</a></li><li class="menu-item menu-item-tags"> <a href="/blog/tags" rel="section">我的标签</a></li><li class="menu-item menu-item-about"> <a href="/blog/about" rel="section">了解作者</a></li><li class="menu-item menu-item-search"> <a href="javascript:;" class="popup-trigger">搜索</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i></span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"> <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="https://13623673118.github.io/blog/blog/2020/04/09/promise/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="lost-dream"><meta itemprop="description" content><meta itemprop="image" content="/blog/images/touxiang.jpg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="赵晨敏的博客"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">promise 详解</h1><div class="post-meta"><i class="fa fa-thumb-tack"></i> <font color="7D26CD">置顶</font> <span class="post-meta-divider">|</span><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i></span> <span class="post-meta-item-text">发表于</span> <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-04-09T14:22:19+08:00">2020-04-09</time></span> <span class="post-category"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-folder-o"></i></span> <span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/blog/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a></span></span> <span id="/blog/2020/04/09/promise/" class="leancloud_visitors" data-flag-title="promise 详解"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span> <span class="post-meta-item-text">阅读次数&#58;</span><span class="leancloud-visitors-count"></span></span><div class="post-description"> 面试中常被问起promise，在这里总结一下</div></div></header><div class="post-body" itemprop="articleBody"><p>最近想重新换工作，几乎所有面试都会问到 promise，有简单理解的，也有问到一些比较复杂的实现，有些我是知道的但也有些是不清楚的，所以查阅资料，把关于 promise 的知识补充提升一下。</p><blockquote><p>本文旨在说明 promise，并未实现具体的 ajax 请求。</p></blockquote><h2 id="promise-的出现解决了什么样的问题"><a href="#promise-的出现解决了什么样的问题" class="headerlink" title="promise 的出现解决了什么样的问题"></a>promise 的出现解决了什么样的问题</h2><h3 id="回调地狱"><a href="#回调地狱" class="headerlink" title="回调地狱"></a>回调地狱</h3><p>假设一种业务场景，你需要取到所有开源库的列表（假设列表本身按照开源库热度排序），你需要读取当中热度第一的库名称，然后通过调用查询接口查出该库官方文档地址</p><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"></span><span class="mac-panel__language">JS</span></header><figure class="iseeu highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">ajax(<span class="string">'aaa'</span>, success(res) &#123;</span><br><span class="line">  <span class="keyword">const</span> lib = res</span><br><span class="line">  <span class="comment">// ...other code</span></span><br><span class="line">  ajax(<span class="string">`bbb`</span>, success(res) &#123;</span><br><span class="line">    <span class="comment">// ... other code</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></div><p>事实上，真实的业务可能比例子复杂很多，而后一步的操作又必须基于上一步操作的结果，我们不得不将代码组织成这样的回调。然而这样的代码存在很大的问题：</p><ul><li>代码无法执行 return</li><li>回调层数过多会导致逻辑很难读懂，并且后期维护难度很大</li></ul><h3 id="条件返回"><a href="#条件返回" class="headerlink" title="条件返回"></a>条件返回</h3><p>在视频网站或者直播网站很常见到一种场景，视频会分多条线路（主线路、备用线路1、备用线路2…），业务上，打开网站的时候，会同时去请求这三个视频的接口，只要其中一个接口返回了数据，中断其他接口的请求。这样的业务需求在之前的方法中都没有很好地实现方法。</p><h2 id="promise-详解"><a href="#promise-详解" class="headerlink" title="promise 详解"></a>promise 详解</h2><h3 id="基本语法-amp-amp-成功处理"><a href="#基本语法-amp-amp-成功处理" class="headerlink" title="基本语法 &amp;&amp; 成功处理"></a>基本语法 &amp;&amp; 成功处理</h3><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"></span><span class="mac-panel__language">JS</span></header><figure class="iseeu highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>)=&gt;</span> &#123;</span><br><span class="line">  resolve(<span class="string">'success'</span>)</span><br><span class="line">  reject(<span class="string">'error'</span>)</span><br><span class="line">&#125;)</span><br><span class="line">.then(</span><br><span class="line">  res=&gt; &#123; <span class="built_in">console</span>.log(<span class="string">'success'</span>, res) &#125;</span><br><span class="line">  err=&gt; &#123; <span class="built_in">console</span>.log(<span class="string">'error'</span>, err) &#125;</span><br><span class="line">)</span><br><span class="line">.catch(<span class="function"><span class="params">err</span>=&gt;</span> &#123; <span class="built_in">console</span>.log(err) &#125;)</span><br></pre></td></tr></table></figure></div><ul><li>promise 有三个状态<ul><li>pending 等待结果返回（未完成）</li><li>fulfilled 实现（操作完成）</li><li>rejected 被拒绝（操作失败）</li><li>状态一旦改变，不会再次改变</li></ul></li><li>因此 promise 状态状态改变只有两种可能<ul><li>pending =&gt; fulfilled</li><li>pending =&gt; rejected</li></ul></li></ul><p>其中 pending =&gt; fulfilled 表示操作由未完成变为成功，这时会触发<code>resolve</code>，<strong>将操作的结果作为参数传递出去</strong>，pending =&gt; rejected 表示操作由未完成变为成功，这时会触发<code>reject</code>，<strong>将操作结果的错误信息作为参数传递出去。</strong><br><strong>必须注意的是，promise 会将状态传递出去，用于下一步骤操作的参数</strong></p><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"></span><span class="mac-panel__language">JS</span></header><figure class="iseeu highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span>=&gt;</span> &#123;</span><br><span class="line">  ajax(<span class="string">'aaa'</span>, success(data) &#123;</span><br><span class="line">    <span class="comment">// data = &#123;name: 'singleDogNo.1'&#125;</span></span><br><span class="line">    resolve(data)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;).then(<span class="function"><span class="params">res</span>=&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span>=&gt;</span> &#123;</span><br><span class="line">    ajax(<span class="string">'bbb'</span>, success(data) &#123;</span><br><span class="line">      <span class="comment">// data = &#123;age: 27&#125;</span></span><br><span class="line">      resolve(...[res, data])</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;).then(<span class="function"><span class="params">res</span>=&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(res)</span><br><span class="line">  <span class="comment">/*</span></span><br><span class="line"><span class="comment">    &#123;</span></span><br><span class="line"><span class="comment">      name: 'singleDogNo.1',</span></span><br><span class="line"><span class="comment">      age: 27</span></span><br><span class="line"><span class="comment">    &#125;</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></div><h3 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h3><p>promise 会自动捕捉异常，交给 rejected 函数处理</p><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"></span><span class="mac-panel__language">JS</span></header><figure class="iseeu highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span>=&gt;</span> &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span>=&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'error!'</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">.then(<span class="function"><span class="params">res</span>=&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(res)</span><br><span class="line">&#125;)</span><br><span class="line">.catch(<span class="function"><span class="params">err</span>=&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(err) <span class="comment">// error!</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></div><p>这里需要注意的是链式执行异步操作时，你可以选择为每一步操作做错误处理，类似<code>a().then(b()).catch().then(c()).catch()</code>，也可以将错误处理放在最后执行，类似<code>a().then(b()).then(c()).catch()</code>。但一般推荐第二种方式，更加方便阅读。</p><p>还有一点需要注意的是 catch 本身也会返回 promise 实例，并且状态是 resolve，而且一旦执行到 catch 中，链式操作将会中断，不再继续执行。</p><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"></span><span class="mac-panel__language">JS</span></header><figure class="iseeu highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span>=&gt;</span> &#123;</span><br><span class="line">  setTimeout(<span class="function"><span class="params">()</span>=&gt;</span> &#123;</span><br><span class="line">    resolve()</span><br><span class="line">  &#125;, <span class="number">1000</span>)</span><br><span class="line">&#125;)</span><br><span class="line">.then(<span class="function"><span class="params">()</span>=&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise1'</span>)</span><br><span class="line">  <span class="keyword">throw</span> <span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'error'</span>)</span><br><span class="line">&#125;)</span><br><span class="line">.then(<span class="function"><span class="params">()</span>=&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise2'</span>)</span><br><span class="line">&#125;)</span><br><span class="line">.then(<span class="function"><span class="params">()</span>=&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">'promise3'</span>)</span><br><span class="line">&#125;)</span><br><span class="line">.catch(<span class="function"><span class="params">err</span>=&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(err)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// promise1</span></span><br><span class="line"><span class="comment">// Error: error</span></span><br><span class="line"><span class="comment">// 不会继续执行 promise2 和 promise3</span></span><br></pre></td></tr></table></figure></div><h3 id="promise-all"><a href="#promise-all" class="headerlink" title="promise.all()"></a>promise.all()</h3><p>这个方法会在所有异步操作执行完成并且状态全部为成功的时候执行回调方法</p><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"></span><span class="mac-panel__language">JS</span></header><figure class="iseeu highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">randomA</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> num = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">10</span>)</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'num: '</span>, num);</span><br><span class="line">      <span class="keyword">if</span> (num &lt;= <span class="number">5</span>) &#123;</span><br><span class="line">        resolve(num)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        reject(<span class="string">'randomA:数字大于5是不行的'</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">randomB</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> num = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">10</span>)</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'num: '</span>, num);</span><br><span class="line">      <span class="keyword">if</span> (num &lt;= <span class="number">5</span>) &#123;</span><br><span class="line">        resolve(num)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        reject(<span class="string">'randomB:数字大于5是不行的'</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">randomC</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> num = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">10</span>)</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'num: '</span>, num);</span><br><span class="line">      <span class="keyword">if</span> (num &lt;= <span class="number">5</span>) &#123;</span><br><span class="line">        resolve(num)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        reject(<span class="string">'randomC:数字大于5是不行的'</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.all([randomA(), randomB(), randomC()]).then(<span class="function"><span class="params">res</span>=&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(res)</span><br><span class="line">  <span class="comment">// success: [1,2,3]</span></span><br><span class="line">  <span class="comment">// error: Uncaught (in promise) randomB:数字大于5是不行的</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></div><p>可以复制上面代码运行，只有当三个方法值全部小于 5，才会返回正确的值。可以看到正确返回时，返回值是数组的形式。数组中每一项对应 all 方法中的每一个异步操作的结果。</p><h3 id="promise-race"><a href="#promise-race" class="headerlink" title="promise.race()"></a>promise.race()</h3><p>回想一下上面描述的视频平台切换可选线路的问题。在 promise 中可以使用<code>promise.race()</code>方法解决。这个方法完全区别于<code>promise.all()</code>，上面的方法在所有异步操作完成之后才执行，这个方法则是<strong>谁先完成就先处理谁的回调方法。</strong>先执行完的方法无论成功或失败，其余的操作还会继续执行，但是不会进入 race 的回调方法。</p><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"></span><span class="mac-panel__language">JS</span></header><figure class="iseeu highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// promise.all 的例子，将 timeout 区分开来</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">randomA</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> num = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">10</span>)</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'num: '</span>, num);</span><br><span class="line">      <span class="keyword">if</span> (num &lt;= <span class="number">5</span>) &#123;</span><br><span class="line">        resolve(num)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        reject(<span class="string">'randomA:数字大于5是不行的'</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, <span class="number">1000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">randomB</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> num = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">10</span>)</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'num: '</span>, num);</span><br><span class="line">      <span class="keyword">if</span> (num &lt;= <span class="number">5</span>) &#123;</span><br><span class="line">        resolve(num)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        reject(<span class="string">'randomB:数字大于5是不行的'</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, <span class="number">2000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">randomC</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve,reject</span>)=&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">const</span> num = <span class="built_in">Math</span>.floor(<span class="built_in">Math</span>.random() * <span class="number">10</span>)</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'num: '</span>, num);</span><br><span class="line">      <span class="keyword">if</span> (num &lt;= <span class="number">5</span>) &#123;</span><br><span class="line">        resolve(num)</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        reject(<span class="string">'randomC:数字大于5是不行的'</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, <span class="number">3000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.race([randomA(), randomB(), randomC()]).then(</span><br><span class="line">  res=&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'res: '</span>, res)</span><br><span class="line">  &#125;,</span><br><span class="line">  err=&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">'err: '</span>, err)</span><br><span class="line">  &#125;</span><br><span class="line">)</span><br></pre></td></tr></table></figure></div><h4 id="利用promise-race实现需求-如果接口-10s-内返回数据就处理数据，否则执行其他操作"><a href="#利用promise-race实现需求-如果接口-10s-内返回数据就处理数据，否则执行其他操作" class="headerlink" title="利用promise.race实现需求 - 如果接口 10s 内返回数据就处理数据，否则执行其他操作"></a>利用promise.race实现需求 - 如果接口 10s 内返回数据就处理数据，否则执行其他操作</h4><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"></span><span class="mac-panel__language">JS</span></header><figure class="iseeu highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getData</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function"><span class="params">resolve</span>=&gt;</span> &#123;</span><br><span class="line">    ajax(<span class="string">'url'</span>, success(res) &#123;</span><br><span class="line">      resolve()</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">timeout</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>)=&gt;</span> &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span>=&gt;</span> &#123;</span><br><span class="line">      reject(<span class="string">'请求超时'</span>)</span><br><span class="line">    &#125;, <span class="number">10000</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">Promise</span>.race([getData(), timeout()])</span><br><span class="line">.then(<span class="function"><span class="params">res</span>=&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(res)</span><br><span class="line">&#125;)</span><br><span class="line">.catch(<span class="function"><span class="params">err</span>=&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(err)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></div></div><div><div style="text-align:center;color: #ccc;font-size:14px;"> ------ 本文结束<i class="fa fa-paw"></i>感谢您的阅读 ------</div></div><div><div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;"><div>您的支持将鼓励我继续创作！</div> <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}"> <span>打赏</span></button><div id="QR" style="display: none;"><div id="wechat" style="display: inline-block"> <img id="wechat_qr" src="/blog/images/qrCode.png" alt="lost-dream 微信支付"><p>微信支付</p></div></div></div></div><footer class="post-footer"><div class="post-tags"><a href="/blog/tags/es6/" rel="tag"><i class="fa fa-tag"></i> es6</a><a href="/blog/tags/promise/" rel="tag"><i class="fa fa-tag"></i> promise</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/blog/2020/01/15/试图详解Array.reduce/" rel="next" title="试图详解Array.reduce"><i class="fa fa-chevron-left"></i> 试图详解Array.reduce</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"> <a href="/blog/2021/01/26/vuex4/" rel="prev" title="vuex4 + typescript 配置">vuex4 + typescript 配置<i class="fa fa-chevron-right"></i></a></div></div></footer></div></article><div class="post-spread"></div></div></div><div class="comments" id="comments"></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span><span class="sidebar-toggle-line sidebar-toggle-line-middle"></span><span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap"> 文章目录</li><li class="sidebar-nav-overview" data-target="site-overview"> 站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"> <img class="site-author-image" itemprop="image" src="/blog/images/touxiang.jpg" alt="lost-dream"><p class="site-author-name" itemprop="name">lost-dream</p><p class="site-description motion-element" itemprop="description" style="margin-bottom: 0">爱前端，爱技术，爱所有值得去爱的一切</p></div><div class="sidebar-clock"><svg><text text-anchor="middle" x="50%" y="80%" class="words words-1"/><text text-anchor="middle" x="50%" y="80%" class="words words-2"/><text text-anchor="middle" x="50%" y="80%" class="words words-3"/><text text-anchor="middle" x="50%" y="80%" class="words words-4"/></svg></div><script src="/blog/js/src/sidebar-clock.js"></script><nav class="site-state motion-element"><div class="site-state-item site-state-posts"> <a href="/blog/archives"><span class="site-state-item-count">40</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"> <a href="/blog/categories/index.html"><span class="site-state-item-count">23</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"> <a href="/blog/tags/index.html"><span class="site-state-item-count">38</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="links-of-author motion-element"></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#promise-的出现解决了什么样的问题"><span class="nav-number">1.</span> <span class="nav-text">promise 的出现解决了什么样的问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#回调地狱"><span class="nav-number">1.1.</span> <span class="nav-text">回调地狱</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#条件返回"><span class="nav-number">1.2.</span> <span class="nav-text">条件返回</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#promise-详解"><span class="nav-number">2.</span> <span class="nav-text">promise 详解</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基本语法-amp-amp-成功处理"><span class="nav-number">2.1.</span> <span class="nav-text">基本语法 &amp;&amp; 成功处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#错误处理"><span class="nav-number">2.2.</span> <span class="nav-text">错误处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#promise-all"><span class="nav-number">2.3.</span> <span class="nav-text">promise.all()</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#promise-race"><span class="nav-number">2.4.</span> <span class="nav-text">promise.race()</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#利用promise-race实现需求-如果接口-10s-内返回数据就处理数据，否则执行其他操作"><span class="nav-number">2.4.1.</span> <span class="nav-text">利用promise.race实现需求 - 如果接口 10s 内返回数据就处理数据，否则执行其他操作</span></a></li></ol></li></ol></li></ol></div><div class="sidebar-clock"><svg><text text-anchor="middle" x="50%" y="80%" class="words words-1"/><text text-anchor="middle" x="50%" y="80%" class="words words-2"/><text text-anchor="middle" x="50%" y="80%" class="words words-3"/><text text-anchor="middle" x="50%" y="80%" class="words words-4"/></svg></div><script src="/blog/js/src/sidebar-clock.js"></script></div></section><script type="text/javascript" charset="utf-8" src="/blog/js/tagcloud.js"></script><script type="text/javascript" charset="utf-8" src="/blog/js/tagcanvas.js"></script><div class="widget-wrap"><h3 class="widget-title" style="margin-bottom: 0;margin-top: 0;">tags</h3><div id="myCanvasContainer" class="widget tagcloud"><canvas width="220" height="220" id="resCanvas"><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Eslint/">Eslint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/GitHub/">GitHub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/NodeJs/">NodeJs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Prettier/">Prettier</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Vue/">Vue</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Vuex/">Vuex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/WeChat/">WeChat</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/adminUI/">adminUI</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/animate/">animate</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/audio/">audio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/axios/">axios</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/blog/">blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/cache/">cache</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/canvas/">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/carousel/">carousel</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/compress/">compress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/css/">css</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/css3/">css3</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/draggable/">draggable</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/es6/">es6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/es6/">es6+</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/fs模块/">fs模块</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/html5/">html5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mac/">mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/markdown/">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/nodeJs/">nodeJs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/promise/">promise</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/sass/">sass</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/video/">video</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vscode/">vscode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vue/">vue</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vue3/">vue3</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vuex/">vuex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/webpack/">webpack</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/webstorm/">webstorm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/粒子动画/">粒子动画</a><span class="tag-list-count">1</span></li></ul></canvas></div></div></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><div class="copyright"> &copy; <span itemprop="copyrightYear">2021</span><span class="with-love"><i class="fa fa-heart"></i></span> <span class="author" itemprop="copyrightHolder">Powered By Lost Dream</span></div><div class="powered-by"> 个人专属</div> <span class="post-meta-divider">|</span><div class="theme-info">杜绝抄袭</div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i> <span id="scrollpercent"><span>0</span>%</span></div></div><script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script><script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script><script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script><script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script><script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/clipboard.min.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/clipboard-use.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/affix.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/schemes/pisces.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.2"></script><link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"><script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script><script src="https://priesttomb.github.io/js/md5.min.js"></script><style>
+    #gitalk-container {
+      position: relative;
+      width: 75%;
+      background: #fff;
+      z-index: 99999;
+      margin: 0 auto;
+      box-shadow: 0 2px 2px 0 rgb(0 0 0 / 12%), 0 3px 1px -2px rgb(0 0 0 / 6%), 0 1px 5px 0 rgb(0 0 0 / 12%), 0 -1px 0.5px 0 rgb(0 0 0 / 9%);
+      box-sizing: border-box;
+      padding: 0 30px;
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+      #gitalk-container {
+        width: auto;
+      }
+    }
+
+
+    @media (min-width: 1600px) {
+      #gitalk-container {
+        width: 75%;
+      }
+    }
+
+    @media (max-width: 767px) {
+      #gitalk-container {
+        width: calc(100% - 40px);
+      }
+    }
+  </style><div id="gitalk-container"></div><script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '596ac7728fd178ed4d4e',
+      clientSecret: '5f75ee1fd71fb39ef53b4e3809324d1cbb5bf1d1',
+      repo: 'lost-dream.github.io',
+      owner: 'lost-dream',
+      admin: ['lost-dream'],
+      id: location.pathname,
+      distractionFreeMode: 'true'
+    })
+    gitalk.render('gitalk-container')
+  </script><script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/blog/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script><script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script><script>AV.initialize("j09L0uYIPRJK0N5spx2c0QOL-gzGzoHsz", "tkexYWWbD9CLEFuojFy1uPRN");</script><script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><script src="/blog/js/src/cursor/fireworks.js"></script><canvas id="canvas" width="1440" height="900"></canvas><script type="text/javascript" src="/blog/js/src/DigitalRain.js?v=5.1.2"></script><script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/blog/live2dw/assets/z16.model.json"},"display":{"superSample":2,"width":225,"height":450,"position":"left","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","log":false,"tagMode":false});</script></body></html>

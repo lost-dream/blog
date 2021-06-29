@@ -1,0 +1,483 @@
+<!DOCTYPE html><html class="theme-next gemini use-motion" lang="zh-Hans"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="theme-color" content="#222"><script src="/blog/lib/pace/pace.min.js?v=1.0.2"></script><link href="/blog/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"><link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/blog/css/main.css?v=5.1.2" rel="stylesheet" type="text/css"><meta name="keywords" content="git,"><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.png?v=5.1.2"><meta name="description" content="git常用命令大全"><meta name="keywords" content="git"><meta property="og:type" content="article"><meta property="og:title" content="git命令"><meta property="og:url" content="https://13623673118.github.io/blog/2017/09/25/git命令/index.html"><meta property="og:site_name" content="赵晨敏的博客"><meta property="og:description" content="git常用命令大全"><meta property="og:locale" content="zh-Hans"><meta property="og:updated_time" content="2021-06-29T00:17:16.134Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="git命令"><meta name="twitter:description" content="git常用命令大全"><script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script><link rel="canonical" href="https://13623673118.github.io/blog/2017/09/25/git命令/"><title>git命令 | 赵晨敏的博客</title></head><body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"><div class="container sidebar-position-right page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta "><div class="custom-logo-site-title"><a href="/blog/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">赵晨敏的博客</span><span class="logo-line-after"><i></i></span></a></div><p class="site-subtitle">赵晨敏</p></div><div class="site-nav-toggle"> <button><span class="btn-bar"></span><span class="btn-bar"></span><span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"> <a href="/blog/" rel="section">我的首页</a></li><li class="menu-item menu-item-archives"> <a href="/blog/archives" rel="section">所有文章</a></li><li class="menu-item menu-item-categories"> <a href="/blog/categories" rel="section">文章分类</a></li><li class="menu-item menu-item-tags"> <a href="/blog/tags" rel="section">我的标签</a></li><li class="menu-item menu-item-about"> <a href="/blog/about" rel="section">了解作者</a></li><li class="menu-item menu-item-search"> <a href="javascript:;" class="popup-trigger">搜索</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i></span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"> <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="https://13623673118.github.io/blog/blog/2017/09/25/git命令/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="lost-dream"><meta itemprop="description" content><meta itemprop="image" content="/blog/images/touxiang.jpg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="赵晨敏的博客"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">git命令</h1><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i></span> <span class="post-meta-item-text">发表于</span> <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-25T10:10:23+08:00">2017-09-25</time></span> <span class="post-category"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-folder-o"></i></span> <span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/blog/categories/git/" itemprop="url" rel="index"><span itemprop="name">git</span></a></span></span> <span id="/blog/2017/09/25/git命令/" class="leancloud_visitors" data-flag-title="git命令"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span> <span class="post-meta-item-text">阅读次数&#58;</span><span class="leancloud-visitors-count"></span></span><div class="post-description"> git常用命令大全</div></div></header><div class="post-body" itemprop="articleBody"><h2 id="git常用命令大全"><a href="#git常用命令大全" class="headerlink" title="git常用命令大全  "></a>git常用命令大全</h2><blockquote><p>本博客旨在记录常用git命令。如果希望得到更多关于git的知识，请移步到<a href="https://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000" target="_blank" rel="noopener">廖雪峰的git教程</a>，有非常详细的教程资料。</p></blockquote><h4 id="添加文件、查看状态、删除文件、提交文件、找回文件，重置修改文件"><a href="#添加文件、查看状态、删除文件、提交文件、找回文件，重置修改文件" class="headerlink" title="添加文件、查看状态、删除文件、提交文件、找回文件，重置修改文件"></a>添加文件、查看状态、删除文件、提交文件、找回文件，重置修改文件</h4><blockquote><p>git help &lt;command&gt; &nbsp;&nbsp;&nbsp;&nbsp; 显示command的帮助文档<br>git show (commitID) &nbsp;&nbsp;&nbsp;&nbsp; 显示最近一次（某一次）提交的内容详情<br>git co –<file> &nbsp;&nbsp;&nbsp;&nbsp; 抛弃工作区某一文件的修改<br>git co . &nbsp;&nbsp;&nbsp;&nbsp; 抛弃工作区修改<br>git add<file> &nbsp;&nbsp;&nbsp;&nbsp; 将工作文件修改提交到本地暂存区<br>git add . &nbsp;&nbsp;&nbsp;&nbsp; 将所有修改过的工作文件提交暂存区<br>git rm<file> &nbsp;&nbsp;&nbsp;&nbsp; 从版本库中删除文件<br>git rm<file> –cached &nbsp;&nbsp;&nbsp;&nbsp; 从版本库中删除文件，但不删除本地文件<br>git reset<file> &nbsp;&nbsp;&nbsp;&nbsp; 从暂存区恢复到工作文件<br>git reset – . &nbsp;&nbsp;&nbsp;&nbsp; 从暂存区恢复到工作文件<br>git reset –hard &nbsp;&nbsp;&nbsp;&nbsp; 恢复最近一次提交过的状态，即放弃上次提交后的所有本次修改<br>git ci<file> git ci . git ci -a &nbsp;&nbsp;&nbsp;&nbsp; 将git add, git rm和git ci等操作都合并在一起做git ci -am “some comments”<br>git ci –amend &nbsp;&nbsp;&nbsp;&nbsp; 修改最后一次提交记录<br>git revert<commitid> &nbsp;&nbsp;&nbsp;&nbsp; 恢复某次提交的状态，恢复动作本身也创建次提交对象<br>git revert HEAD &nbsp;&nbsp;&nbsp;&nbsp; 恢复最后一次提交的状态</commitid></file></file></file></file></file></file></p></blockquote><h4 id="查看文件diff"><a href="#查看文件diff" class="headerlink" title="查看文件diff"></a>查看文件diff</h4><blockquote><p>git diff<file> &nbsp;&nbsp;&nbsp;&nbsp; 比较当前文件和暂存区文件差异 git diff<br>git diff<id1><id2> &nbsp;&nbsp;&nbsp;&nbsp; 比较两次提交之间的差异<br>git diff<branch1>..<branch2> &nbsp;&nbsp;&nbsp;&nbsp; 在两个分支之间比较<br>git diff –staged &nbsp;&nbsp;&nbsp;&nbsp; 比较暂存区和版本库差异<br>git diff –cached &nbsp;&nbsp;&nbsp;&nbsp; 比较暂存区和版本库差异<br>git diff –stat &nbsp;&nbsp;&nbsp;&nbsp; 仅仅比较统计信息</branch2></branch1></id2></id1></file></p></blockquote><h4 id="查看提交记录"><a href="#查看提交记录" class="headerlink" title="查看提交记录"></a>查看提交记录</h4><blockquote><p>git log git log<file> &nbsp;&nbsp;&nbsp;&nbsp; 查看该文件每次提交记录<br>git log -p<file> &nbsp;&nbsp;&nbsp;&nbsp; 查看每次详细修改内容的diff<br>git log -p -2 &nbsp;&nbsp;&nbsp;&nbsp; 查看最近两次详细修改内容的diff<br>git log –stat &nbsp;&nbsp;&nbsp;&nbsp;查看提交统计信息</file></file></p></blockquote><h4 id="Git-本地分支管理"><a href="#Git-本地分支管理" class="headerlink" title="Git 本地分支管理"></a>Git 本地分支管理</h4><h5 id="查看、切换、创建和删除分支"><a href="#查看、切换、创建和删除分支" class="headerlink" title="查看、切换、创建和删除分支"></a>查看、切换、创建和删除分支</h5><blockquote><p>git branch -r &nbsp;&nbsp;&nbsp;&nbsp; 查看远程分支<br>git branch &lt;new_branch&gt; &nbsp;&nbsp;&nbsp;&nbsp; 创建新的分支<br>git branch -v &nbsp;&nbsp;&nbsp;&nbsp; 查看各个分支最后提交信息<br>git branch –merged &nbsp;&nbsp;&nbsp;&nbsp; 查看已经被合并到当前分支的分支<br>git branch –no-merged &nbsp;&nbsp;&nbsp;&nbsp; 查看尚未被合并到当前分支的分支<br>git checkout<branch> &nbsp;&nbsp;&nbsp;&nbsp; 切换到某个分支<br>git checkout -b &lt;new_branch&gt; &nbsp;&nbsp;&nbsp;&nbsp; 创建新的分支，并且切换过去<br>git checkout -b &lt;new_branch&gt;<branch> &nbsp;&nbsp;&nbsp;&nbsp; 基于branch创建新的new_branch<br>git checkout commitID &nbsp;&nbsp;&nbsp;&nbsp; 把某次历史提交记录checkout出来，但无分支信息，切换到其他分支会自动删除<br>git checkout commitID -b &lt;new_branch&gt; &nbsp;&nbsp;&nbsp;&nbsp; 把某次历史提交记录checkout出来，创建成一个分支<br>git branch -d<branch> &nbsp;&nbsp;&nbsp;&nbsp; 删除某个分支<br>git branch -D<branch> &nbsp;&nbsp;&nbsp;&nbsp; 强制删除某个分支 (未被合并的分支被删除的时候需要强制)</branch></branch></branch></branch></p></blockquote><h4 id="分支合并和rebase"><a href="#分支合并和rebase" class="headerlink" title="分支合并和rebase"></a>分支合并和rebase</h4><blockquote><p>git merge<branch> &nbsp;&nbsp;&nbsp;&nbsp; 将branch分支合并到当前分支<br>git merge origin/master –no-ff &nbsp;&nbsp;&nbsp;&nbsp; 不要Fast-Foward合并，这样可以生成merge提交<br>git rebase master<branch> &nbsp;&nbsp;&nbsp;&nbsp; 将master rebase到branch，相当于： git co<branch> &amp;&amp; git rebase master &amp;&amp; git co master &amp;&amp; git merge<branch></branch></branch></branch></branch></p></blockquote><h4 id="Git补丁管理-方便在多台机器上开发同步时用"><a href="#Git补丁管理-方便在多台机器上开发同步时用" class="headerlink" title="Git补丁管理(方便在多台机器上开发同步时用)"></a>Git补丁管理(方便在多台机器上开发同步时用)</h4><blockquote><p>git diff &gt; ../sync.patch &nbsp;&nbsp;&nbsp;&nbsp; 生成补丁<br>git apply ../sync.patch &nbsp;&nbsp;&nbsp;&nbsp; 打补丁<br>git apply –check ../sync.patch &nbsp;&nbsp;&nbsp;&nbsp;测试补丁能否成功</p></blockquote><h4 id="Git暂存管理"><a href="#Git暂存管理" class="headerlink" title="Git暂存管理"></a>Git暂存管理</h4><blockquote><p>git stash &nbsp;&nbsp;&nbsp;&nbsp; 暂存<br>git stash list &nbsp;&nbsp;&nbsp;&nbsp; 列出所有stash<br>git stash apply &nbsp;&nbsp;&nbsp;&nbsp; 恢复暂存的内容<br>git stash drop &nbsp;&nbsp;&nbsp;&nbsp; 删除暂存区</p></blockquote><h4 id="Git远程分支管理"><a href="#Git远程分支管理" class="headerlink" title="Git远程分支管理"></a>Git远程分支管理</h4><blockquote><p>git pull &nbsp;&nbsp;&nbsp;&nbsp; 抓取远程仓库所有分支更新并合并到本地<br>git pull –no-ff &nbsp;&nbsp;&nbsp;&nbsp; 抓取远程仓库所有分支更新并合并到本地，不要快进合并<br>git fetch origin &nbsp;&nbsp;&nbsp;&nbsp; 抓取远程仓库更新<br>git merge origin/master &nbsp;&nbsp;&nbsp;&nbsp; 将远程主分支合并到本地当前分支<br>git co –track origin/branch &nbsp;&nbsp;&nbsp;&nbsp; 跟踪某个远程分支创建相应的本地分支<br>git co -b &lt;local_branch&gt; origin/&lt;remote_branch&gt; &nbsp;&nbsp;&nbsp;&nbsp; 基于远程分支创建本地分支，功能同上<br>git push &nbsp;&nbsp;&nbsp;&nbsp; push所有分支<br>git push origin master &nbsp;&nbsp;&nbsp;&nbsp; 将本地主分支推到远程主分支<br>git push -u origin master &nbsp;&nbsp;&nbsp;&nbsp; 将本地主分支推到远程(如无远程主分支则创建，用于初始化远程仓库)<br>git push origin &lt;local_branch&gt; &nbsp;&nbsp;&nbsp;&nbsp; 创建远程分支， origin是远程仓库名<br>git push origin &lt;local_branch&gt;:&lt;remote_branch&gt; &nbsp;&nbsp;&nbsp;&nbsp; 创建远程分支<br>git push origin :&lt;remote_branch&gt; &nbsp;&nbsp;&nbsp;&nbsp;先删除本地分支(git br -d<branch>)，然后再push删除远程分支</branch></p></blockquote><h4 id="Git远程仓库管理"><a href="#Git远程仓库管理" class="headerlink" title="Git远程仓库管理"></a>Git远程仓库管理</h4><h5 id="GitHub"><a href="#GitHub" class="headerlink" title="GitHub"></a>GitHub</h5><blockquote><p>git remote -v &nbsp;&nbsp;&nbsp;&nbsp; 查看远程服务器地址和仓库名称<br>git remote show origin &nbsp;&nbsp;&nbsp;&nbsp; 查看远程服务器仓库状态<br>git remote add origin git@ github:####/####.git &nbsp;&nbsp;&nbsp;&nbsp; 添加远程仓库地址<br>git remote set-url origin git@ github.com:####/####.git &nbsp;&nbsp;&nbsp;&nbsp; 设置远程仓库地址(用于修改远程仓库地址)<br>git remote rm<repository> &nbsp;&nbsp;&nbsp;&nbsp; 删除远程仓库</repository></p></blockquote><h4 id="创建远程仓库"><a href="#创建远程仓库" class="headerlink" title="创建远程仓库"></a>创建远程仓库</h4><blockquote><p>git clone –bare robbin_site robbin_site.git &nbsp;&nbsp;&nbsp;&nbsp; 用带版本的项目创建纯版本仓库<br>scp -r my_project.git git@ git.csdn.net:~ &nbsp;&nbsp;&nbsp;&nbsp; 将纯仓库上传到服务器上<br>mkdir robbin_site.git &amp;&amp; cd robbin_site.git &amp;&amp; git –bare init &nbsp;&nbsp;&nbsp;&nbsp; 在服务器创建纯仓库<br>git remote add origin git@ github.com:robbin/robbin_site.git &nbsp;&nbsp;&nbsp;&nbsp; 设置远程仓库地址<br>git push -u origin master &nbsp;&nbsp;&nbsp;&nbsp; 客户端首次提交<br>git push -u origin develop &nbsp;&nbsp;&nbsp;&nbsp; 首次将本地develop分支提交到远程develop分支，并且track<br>git remote set-head origin master &nbsp;&nbsp;&nbsp;&nbsp; 设置远程仓库的HEAD指向master分支</p></blockquote><h4 id="设置跟踪远程库和本地库"><a href="#设置跟踪远程库和本地库" class="headerlink" title="设置跟踪远程库和本地库"></a>设置跟踪远程库和本地库</h4><blockquote><p>git branch –set-upstream master origin/master<br>git branch –set-upstream develop origin/develop</p></blockquote></div><div><div style="text-align:center;color: #ccc;font-size:14px;"> ------ 本文结束<i class="fa fa-paw"></i>感谢您的阅读 ------</div></div><div><div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;"><div>您的支持将鼓励我继续创作！</div> <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}"> <span>打赏</span></button><div id="QR" style="display: none;"><div id="wechat" style="display: inline-block"> <img id="wechat_qr" src="/blog/images/qrCode.png" alt="lost-dream 微信支付"><p>微信支付</p></div></div></div></div><footer class="post-footer"><div class="post-tags"><a href="/blog/tags/git/" rel="tag"><i class="fa fa-tag"></i> git</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/blog/2017/08/28/使用webstrom/" rel="next" title="使用webstrom"><i class="fa fa-chevron-left"></i> 使用webstrom</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"> <a href="/blog/2017/10/10/particlesJs开发手册/" rel="prev" title="particlesJs开发手册">particlesJs开发手册<i class="fa fa-chevron-right"></i></a></div></div></footer></div></article><div class="post-spread"></div></div></div><div class="comments" id="comments"></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span><span class="sidebar-toggle-line sidebar-toggle-line-middle"></span><span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap"> 文章目录</li><li class="sidebar-nav-overview" data-target="site-overview"> 站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"> <img class="site-author-image" itemprop="image" src="/blog/images/touxiang.jpg" alt="lost-dream"><p class="site-author-name" itemprop="name">lost-dream</p><p class="site-description motion-element" itemprop="description" style="margin-bottom: 0">爱前端，爱技术，爱所有值得去爱的一切</p></div><div class="sidebar-clock"><svg><text text-anchor="middle" x="50%" y="80%" class="words words-1"/><text text-anchor="middle" x="50%" y="80%" class="words words-2"/><text text-anchor="middle" x="50%" y="80%" class="words words-3"/><text text-anchor="middle" x="50%" y="80%" class="words words-4"/></svg></div><script src="/blog/js/src/sidebar-clock.js"></script><nav class="site-state motion-element"><div class="site-state-item site-state-posts"> <a href="/blog/archives"><span class="site-state-item-count">40</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"> <a href="/blog/categories/index.html"><span class="site-state-item-count">23</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"> <a href="/blog/tags/index.html"><span class="site-state-item-count">38</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="links-of-author motion-element"></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#git常用命令大全"><span class="nav-number">1.</span> <span class="nav-text">git常用命令大全</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#添加文件、查看状态、删除文件、提交文件、找回文件，重置修改文件"><span class="nav-number">1.0.1.</span> <span class="nav-text">添加文件、查看状态、删除文件、提交文件、找回文件，重置修改文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看文件diff"><span class="nav-number">1.0.2.</span> <span class="nav-text">查看文件diff</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查看提交记录"><span class="nav-number">1.0.3.</span> <span class="nav-text">查看提交记录</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Git-本地分支管理"><span class="nav-number">1.0.4.</span> <span class="nav-text">Git 本地分支管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#查看、切换、创建和删除分支"><span class="nav-number">1.0.4.1.</span> <span class="nav-text">查看、切换、创建和删除分支</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#分支合并和rebase"><span class="nav-number">1.0.5.</span> <span class="nav-text">分支合并和rebase</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Git补丁管理-方便在多台机器上开发同步时用"><span class="nav-number">1.0.6.</span> <span class="nav-text">Git补丁管理(方便在多台机器上开发同步时用)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Git暂存管理"><span class="nav-number">1.0.7.</span> <span class="nav-text">Git暂存管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Git远程分支管理"><span class="nav-number">1.0.8.</span> <span class="nav-text">Git远程分支管理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Git远程仓库管理"><span class="nav-number">1.0.9.</span> <span class="nav-text">Git远程仓库管理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#GitHub"><span class="nav-number">1.0.9.1.</span> <span class="nav-text">GitHub</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建远程仓库"><span class="nav-number">1.0.10.</span> <span class="nav-text">创建远程仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置跟踪远程库和本地库"><span class="nav-number">1.0.11.</span> <span class="nav-text">设置跟踪远程库和本地库</span></a></li></ol></li></ol></div><div class="sidebar-clock"><svg><text text-anchor="middle" x="50%" y="80%" class="words words-1"/><text text-anchor="middle" x="50%" y="80%" class="words words-2"/><text text-anchor="middle" x="50%" y="80%" class="words words-3"/><text text-anchor="middle" x="50%" y="80%" class="words words-4"/></svg></div><script src="/blog/js/src/sidebar-clock.js"></script></div></section><script type="text/javascript" charset="utf-8" src="/blog/js/tagcloud.js"></script><script type="text/javascript" charset="utf-8" src="/blog/js/tagcanvas.js"></script><div class="widget-wrap"><h3 class="widget-title" style="margin-bottom: 0;margin-top: 0;">tags</h3><div id="myCanvasContainer" class="widget tagcloud"><canvas width="220" height="220" id="resCanvas"><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Eslint/">Eslint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/GitHub/">GitHub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/NodeJs/">NodeJs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Prettier/">Prettier</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Vue/">Vue</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Vuex/">Vuex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/WeChat/">WeChat</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/adminUI/">adminUI</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/animate/">animate</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/audio/">audio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/axios/">axios</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/blog/">blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/cache/">cache</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/canvas/">canvas</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/carousel/">carousel</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/compress/">compress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/css/">css</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/css3/">css3</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/draggable/">draggable</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/es6/">es6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/es6/">es6+</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/fs模块/">fs模块</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/html5/">html5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mac/">mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/markdown/">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/nodeJs/">nodeJs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/promise/">promise</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/sass/">sass</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/video/">video</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vscode/">vscode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vue/">vue</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vue3/">vue3</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vuex/">vuex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/webpack/">webpack</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/webstorm/">webstorm</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/粒子动画/">粒子动画</a><span class="tag-list-count">1</span></li></ul></canvas></div></div></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><div class="copyright"> &copy; <span itemprop="copyrightYear">2021</span><span class="with-love"><i class="fa fa-heart"></i></span> <span class="author" itemprop="copyrightHolder">Powered By Lost Dream</span></div><div class="powered-by"> 个人专属</div> <span class="post-meta-divider">|</span><div class="theme-info">杜绝抄袭</div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i> <span id="scrollpercent"><span>0</span>%</span></div></div><script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script><script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script><script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script><script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script><script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/clipboard.min.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/clipboard-use.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/affix.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/schemes/pisces.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.2"></script><link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"><script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script><script src="https://priesttomb.github.io/js/md5.min.js"></script><style>
+    #gitalk-container {
+      position: relative;
+      width: 75%;
+      background: #fff;
+      z-index: 99999;
+      margin: 0 auto;
+      box-shadow: 0 2px 2px 0 rgb(0 0 0 / 12%), 0 3px 1px -2px rgb(0 0 0 / 6%), 0 1px 5px 0 rgb(0 0 0 / 12%), 0 -1px 0.5px 0 rgb(0 0 0 / 9%);
+      box-sizing: border-box;
+      padding: 0 30px;
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+      #gitalk-container {
+        width: auto;
+      }
+    }
+
+
+    @media (min-width: 1600px) {
+      #gitalk-container {
+        width: 75%;
+      }
+    }
+
+    @media (max-width: 767px) {
+      #gitalk-container {
+        width: calc(100% - 40px);
+      }
+    }
+  </style><div id="gitalk-container"></div><script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '596ac7728fd178ed4d4e',
+      clientSecret: '5f75ee1fd71fb39ef53b4e3809324d1cbb5bf1d1',
+      repo: 'lost-dream.github.io',
+      owner: 'lost-dream',
+      admin: ['lost-dream'],
+      id: location.pathname,
+      distractionFreeMode: 'true'
+    })
+    gitalk.render('gitalk-container')
+  </script><script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/blog/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script><script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script><script>AV.initialize("j09L0uYIPRJK0N5spx2c0QOL-gzGzoHsz", "tkexYWWbD9CLEFuojFy1uPRN");</script><script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><script src="/blog/js/src/cursor/fireworks.js"></script><canvas id="canvas" width="1440" height="900"></canvas><script type="text/javascript" src="/blog/js/src/DigitalRain.js?v=5.1.2"></script><script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/blog/live2dw/assets/z16.model.json"},"display":{"superSample":2,"width":225,"height":450,"position":"left","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","log":false,"tagMode":false});</script></body></html>

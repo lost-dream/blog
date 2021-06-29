@@ -1,0 +1,1 @@
+"use strict";window,document,$(".highlight .code pre").before('<div class="btn-copy" data-clipboard-snippet=""><i class="fa fa-clipboard"></i></div>'),new ClipboardJS(".btn-copy",{target:function(i){return i.nextElementSibling}}).on("success",function(i){$(".btn-copy").html('<i class="fa fa-clipboard"></i>');i=i.trigger;$(i).html('<i class="fa fa-check"></i>')});
