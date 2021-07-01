@@ -1,0 +1,483 @@
+<!DOCTYPE html><html class="theme-next gemini use-motion" lang="zh-Hans"><head><meta name="generator" content="Hexo 3.9.0"><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta name="theme-color" content="#222"><script src="/blog/lib/pace/pace.min.js?v=1.0.2"></script><link href="/blog/lib/pace/pace-theme-center-atom.min.css?v=1.0.2" rel="stylesheet"><meta http-equiv="Cache-Control" content="no-transform"><meta http-equiv="Cache-Control" content="no-siteapp"><link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"><link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css"><link href="/blog/css/main.css?v=5.1.2" rel="stylesheet" type="text/css"><meta name="keywords" content="vue3,vite,"><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.png?v=5.1.2"><meta name="description" content="使用 vite 搭建 vue3 项目"><meta name="keywords" content="vue3,vite"><meta property="og:type" content="article"><meta property="og:title" content="vue3 脚手架（一）"><meta property="og:url" content="https://13623673118.github.io/blog/2021/06/29/vite-vue-1/index.html"><meta property="og:site_name" content="赵晨敏的博客"><meta property="og:description" content="使用 vite 搭建 vue3 项目"><meta property="og:locale" content="zh-Hans"><meta property="og:image" content="https://13623673118.github.io/blog/img/commitizen.jpg"><meta property="og:updated_time" content="2021-07-01T01:29:07.752Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="vue3 脚手架（一）"><meta name="twitter:description" content="使用 vite 搭建 vue3 项目"><meta name="twitter:image" content="https://13623673118.github.io/blog/img/commitizen.jpg"><script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Gemini',
+    version: '5.1.2',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":true,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script><link rel="canonical" href="https://13623673118.github.io/blog/2021/06/29/vite-vue-1/"><title>vue3 脚手架（一） | 赵晨敏的博客</title></head><body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans"><div class="container sidebar-position-right page-post-detail"><div class="headband"></div><header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-wrapper"><div class="site-meta "><div class="custom-logo-site-title"><a href="/blog/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">赵晨敏的博客</span><span class="logo-line-after"><i></i></span></a></div><p class="site-subtitle">赵晨敏</p></div><div class="site-nav-toggle"> <button><span class="btn-bar"></span><span class="btn-bar"></span><span class="btn-bar"></span></button></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"> <a href="/blog/" rel="section">我的首页</a></li><li class="menu-item menu-item-archives"> <a href="/blog/archives" rel="section">所有文章</a></li><li class="menu-item menu-item-categories"> <a href="/blog/categories" rel="section">文章分类</a></li><li class="menu-item menu-item-tags"> <a href="/blog/tags" rel="section">我的标签</a></li><li class="menu-item menu-item-about"> <a href="/blog/about" rel="section">了解作者</a></li><li class="menu-item menu-item-search"> <a href="javascript:;" class="popup-trigger">搜索</a></li></ul><div class="site-search"><div class="popup search-popup local-search-popup"><div class="local-search-header clearfix"><span class="search-icon"><i class="fa fa-search"></i></span><span class="popup-btn-close"><i class="fa fa-times-circle"></i></span><div class="local-search-input-wrapper"> <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input"></div></div><div id="local-search-result"></div></div></div></nav></div></header><main id="main" class="main"><div class="main-inner"><div class="content-wrap"><div id="content" class="content"><div id="posts" class="posts-expand"><article class="post post-type-normal" itemscope itemtype="http://schema.org/Article"><div class="post-block"><link itemprop="mainEntityOfPage" href="https://13623673118.github.io/blog/blog/2021/06/29/vite-vue-1/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="name" content="lost-dream"><meta itemprop="description" content><meta itemprop="image" content="/blog/images/touxiang.jpg"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="赵晨敏的博客"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">vue3 脚手架（一）</h1><div class="post-meta"><span class="post-time"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i></span> <span class="post-meta-item-text">发表于</span> <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-06-29T13:37:16+08:00">2021-06-29</time></span> <span class="post-category"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-folder-o"></i></span> <span class="post-meta-item-text">分类于</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/blog/categories/vue/" itemprop="url" rel="index"><span itemprop="name">vue</span></a></span></span> <span id="/blog/2021/06/29/vite-vue-1/" class="leancloud_visitors" data-flag-title="vue3 脚手架（一）"><span class="post-meta-divider">|</span><span class="post-meta-item-icon"><i class="fa fa-eye"></i></span> <span class="post-meta-item-text">阅读次数&#58;</span><span class="leancloud-visitors-count"></span></span><div class="post-description"> 使用 vite 搭建 vue3 项目</div></div></header><div class="post-body" itemprop="articleBody"><blockquote><p>这系列文章借由 vue3 脚手架搭建，过程中顺便写写自己的开发规范和编辑器习惯。<br>本文仓库地址为: <a href="https://github.com/lost-dream/vue3-template" target="_blank" rel="noopener">vue3-template</a><br><strong>所有的规范都以我的团队的开发习惯为示例，文章中只针对开发规范本身，所有的规范参照自己的团队开发</strong></p></blockquote><h2 id="hello-world"><a href="#hello-world" class="headerlink" title="hello, world"></a>hello, world</h2><p>首先通过<code>vite-cli</code>搭建基础的脚手架，使用<code>vue-ts</code>模板</p><blockquote><p>vite 需要 node.js 版本 &gt;= 12.0.0</p></blockquote><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"><span>.eslintrc.js</span></span><span class="mac-panel__language">SHELL</span></header><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn create @vitejs/app vue3-template --template vue-ts</span><br></pre></td></tr></table></figure></div><h2 id="修改项目结构"><a href="#修改项目结构" class="headerlink" title="修改项目结构"></a>修改项目结构</h2><p>安装完成后，需要修改为我们更常用的项目配置。<strong>以下是我的开发习惯</strong></p><ul><li>根目录新建<code>types</code>文件夹，用来存放各种全局的<code>ts声明文件</code>。上一步新建的项目中，<code>src</code>文件夹下的<code>shims-vue.d.ts</code>和<code>vite-env.d.ts</code>也要转移到该文件夹下统一管理。</li><li>根目录新建<code>mock</code>文件夹，用于开发环境模拟运行数据</li><li>根目录新建<code>test</code>文件夹，用于开发环境单元测试</li><li><code>src</code>目录下新建<ul><li><code>api</code>文件夹统一管理后台请求，具体到业务开发中，需要细分为和后端相同的各个功能子模块，以便日后统一开发维护</li><li><code>styles</code>文件夹统一管理各种全局样式文件、全局css变量、全局 css 方法等（个人使用 sass）</li><li><code>hooks</code>文件夹统一管理<code>composition API</code>的函数片段</li><li><code>router</code>文件夹管理路由</li><li><code>store</code>文件夹管理<code>vuex</code></li><li><code>utils</code>文件夹管理各种功能函数</li><li><code>views</code>文件夹管理各个 vue 模块</li></ul></li></ul><p>结合到项目开发中，可能还需要更多复杂的模块诸如</p><ul><li><code>locales</code> – 语言包</li><li><code>layout</code> – 布局结构</li><li><code>enums</code> – 枚举类型统一管理</li><li><code>directives</code>、 <code>filters</code> – vue 语法扩展</li><li>…</li></ul><p>根据需要再做补充</p><h2 id="添加开发规范"><a href="#添加开发规范" class="headerlink" title="添加开发规范"></a>添加开发规范</h2><p>没有规矩不成方圆，开发规范是团队维护项目减少开发成本最有效的方式之一</p><h3 id="eslint-prettier"><a href="#eslint-prettier" class="headerlink" title="eslint / prettier"></a>eslint / prettier</h3><h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"><span>.eslintrc.js</span></span><span class="mac-panel__language">SHELL</span></header><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add --dev eslint prettier eslint-config-prettier eslint-plugin-prettier eslint-define-config eslint-plugin-vue @typescript-eslint/eslint-plugin @typescript-eslint/parser</span><br></pre></td></tr></table></figure></div><p>依赖有点多，其中<code>eslint-config-prettier</code> / <code>eslint-plugin-prettier</code> 是<code>eslint</code>的<code>prettier</code>插件，<code>eslint-plugin-vue</code>是 <code>eslint</code>的<code>vue</code>语法插件，剩下的是<code>typescript</code>语法支持。</p><h4 id="创建配置文件"><a href="#创建配置文件" class="headerlink" title="创建配置文件"></a>创建配置文件</h4><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"><span>.eslintrc.js</span></span><span class="mac-panel__language">JS</span></header><figure class="iseeu highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> &#123; defineConfig &#125; = <span class="built_in">require</span>(<span class="string">'eslint-define-config'</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">module</span>.exports = defineConfig(&#123;</span><br><span class="line">  root: <span class="literal">true</span>,</span><br><span class="line">  env: &#123;</span><br><span class="line">    browser: <span class="literal">true</span>,</span><br><span class="line">    node: <span class="literal">true</span>,</span><br><span class="line">    es6: <span class="literal">true</span>,</span><br><span class="line">  &#125;,</span><br><span class="line">  parser: <span class="string">'vue-eslint-parser'</span>,</span><br><span class="line">  parserOptions: &#123;</span><br><span class="line">    parser: <span class="string">'@typescript-eslint/parser'</span>,</span><br><span class="line">    ecmaVersion: <span class="number">2020</span>,</span><br><span class="line">    sourceType: <span class="string">'module'</span>,</span><br><span class="line">    jsxPragma: <span class="string">'React'</span>,</span><br><span class="line">    ecmaFeatures: &#123;</span><br><span class="line">      jsx: <span class="literal">true</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  extends: [</span><br><span class="line">    <span class="string">'plugin:vue/vue3-recommended'</span>,</span><br><span class="line">    <span class="string">'plugin:@typescript-eslint/recommended'</span>,</span><br><span class="line">    <span class="string">'prettier'</span>,</span><br><span class="line">    <span class="string">'plugin:prettier/recommended'</span>,</span><br><span class="line">  ],</span><br><span class="line">  rules: &#123;</span><br><span class="line">    <span class="string">'@typescript-eslint/ban-ts-ignore'</span>: <span class="string">'off'</span>,</span><br><span class="line">    <span class="string">'@typescript-eslint/explicit-function-return-type'</span>: <span class="string">'off'</span>,</span><br><span class="line">    <span class="string">'@typescript-eslint/no-explicit-any'</span>: <span class="string">'off'</span>,</span><br><span class="line">    <span class="string">'@typescript-eslint/no-var-requires'</span>: <span class="string">'off'</span>,</span><br><span class="line">    <span class="string">'@typescript-eslint/no-empty-function'</span>: <span class="string">'off'</span>,</span><br><span class="line">    <span class="string">'vue/custom-event-name-casing'</span>: <span class="string">'off'</span>,</span><br><span class="line">    <span class="string">'no-use-before-define'</span>: <span class="string">'off'</span>,</span><br><span class="line">    <span class="string">'@typescript-eslint/no-use-before-define'</span>: <span class="string">'off'</span>,</span><br><span class="line">    <span class="string">'@typescript-eslint/ban-ts-comment'</span>: <span class="string">'off'</span>,</span><br><span class="line">    <span class="string">'@typescript-eslint/ban-types'</span>: <span class="string">'off'</span>,</span><br><span class="line">    <span class="string">'@typescript-eslint/no-non-null-assertion'</span>: <span class="string">'off'</span>,</span><br><span class="line">    <span class="string">'@typescript-eslint/explicit-module-boundary-types'</span>: <span class="string">'off'</span>,</span><br><span class="line">    <span class="string">'@typescript-eslint/no-unused-vars'</span>: [</span><br><span class="line">      <span class="string">'error'</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        argsIgnorePattern: <span class="string">'^_'</span>,</span><br><span class="line">        varsIgnorePattern: <span class="string">'^_'</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">'no-unused-vars'</span>: [</span><br><span class="line">      <span class="string">'error'</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        argsIgnorePattern: <span class="string">'^_'</span>,</span><br><span class="line">        varsIgnorePattern: <span class="string">'^_'</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">    <span class="string">'space-before-function-paren'</span>: <span class="string">'off'</span>,</span><br><span class="line"></span><br><span class="line">    <span class="string">'vue/attributes-order'</span>: <span class="string">'off'</span>,</span><br><span class="line">    <span class="string">'vue/one-component-per-file'</span>: <span class="string">'off'</span>,</span><br><span class="line">    <span class="string">'vue/html-closing-bracket-newline'</span>: <span class="string">'off'</span>,</span><br><span class="line">    <span class="string">'vue/max-attributes-per-line'</span>: <span class="string">'off'</span>,</span><br><span class="line">    <span class="string">'vue/multiline-html-element-content-newline'</span>: <span class="string">'off'</span>,</span><br><span class="line">    <span class="string">'vue/singleline-html-element-content-newline'</span>: <span class="string">'off'</span>,</span><br><span class="line">    <span class="string">'vue/attribute-hyphenation'</span>: <span class="string">'off'</span>,</span><br><span class="line">    <span class="string">'vue/require-default-prop'</span>: <span class="string">'off'</span>,</span><br><span class="line">    <span class="string">'vue/html-self-closing'</span>: [</span><br><span class="line">      <span class="string">'error'</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        html: &#123;</span><br><span class="line">          <span class="keyword">void</span>: <span class="string">'always'</span>,</span><br><span class="line">          normal: <span class="string">'never'</span>,</span><br><span class="line">          component: <span class="string">'always'</span>,</span><br><span class="line">        &#125;,</span><br><span class="line">        svg: <span class="string">'always'</span>,</span><br><span class="line">        math: <span class="string">'always'</span>,</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></div><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"><span>prettier.config.js</span></span><span class="mac-panel__language">JS</span></header><figure class="iseeu highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  printWidth: <span class="number">100</span>,</span><br><span class="line">  tabWidth: <span class="number">2</span>,</span><br><span class="line">  useTabs: <span class="literal">false</span>,</span><br><span class="line">  semi: <span class="literal">false</span>,</span><br><span class="line">  singleQuote: <span class="literal">true</span>,</span><br><span class="line">  quoteProps: <span class="string">'as-needed'</span>,</span><br><span class="line">  bracketSpacing: <span class="literal">true</span>,</span><br><span class="line">  trailingComma: <span class="string">'es5'</span>,</span><br><span class="line">  jsxBracketSameLine: <span class="literal">false</span>,</span><br><span class="line">  jsxSingleQuote: <span class="literal">false</span>,</span><br><span class="line">  arrowParens: <span class="string">'always'</span>,</span><br><span class="line">  insertPragma: <span class="literal">false</span>,</span><br><span class="line">  requirePragma: <span class="literal">false</span>,</span><br><span class="line">  proseWrap: <span class="string">'never'</span>,</span><br><span class="line">  htmlWhitespaceSensitivity: <span class="string">'strict'</span>,</span><br><span class="line">  endOfLine: <span class="string">'lf'</span>,</span><br><span class="line">  rangeStart: <span class="number">0</span>,</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></div><h4 id="修改-package-json"><a href="#修改-package-json" class="headerlink" title="修改 package.json"></a>修改 package.json</h4><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"><span>ROOT/stylelint.config.js</span></span><span class="mac-panel__language">DIFF</span></header><figure class="iseeu highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">  "scripts": &#123;</span><br><span class="line"><span class="addition">+   "lint:eslint": "eslint \"&#123;src,mock&#125;/**/*.&#123;vue,ts,tsx,js,jsx,css,scss,postcss&#125;\" --fix"</span></span><br><span class="line"><span class="addition">+   "lint": "yarn lint:eslint"</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></div><p>表示格式化<code>src</code>文件夹下所有的<code>ts</code>、<code>js</code>、<code>vue</code>、<code>css</code>、<code>scss</code>、<code>json</code>文件，如果有额外补充，参照语法自己修改即可。</p><h3 id="stylelint"><a href="#stylelint" class="headerlink" title="stylelint"></a>stylelint</h3><h4 id="安装依赖"><a href="#安装依赖" class="headerlink" title="安装依赖"></a>安装依赖</h4><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"><span>ROOT/stylelint.config.js</span></span><span class="mac-panel__language">SHELL</span></header><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add --dev stylelint stylelint-config-prettier stylelint-config-standard stylelint-order</span><br></pre></td></tr></table></figure></div><h4 id="创建stylelint-config-js"><a href="#创建stylelint-config-js" class="headerlink" title="创建stylelint.config.js"></a>创建stylelint.config.js</h4><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"><span>ROOT/stylelint.config.js</span></span><span class="mac-panel__language">JS</span></header><figure class="iseeu highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  root: <span class="literal">true</span>,</span><br><span class="line">  plugins: [<span class="string">'stylelint-order'</span>],</span><br><span class="line">  extends: [<span class="string">'stylelint-config-standard'</span>, <span class="string">'stylelint-config-prettier'</span>],</span><br><span class="line">  rules: &#123;</span><br><span class="line">    <span class="comment">// custom rules...</span></span><br><span class="line">  &#125;,</span><br><span class="line">  ignoreFiles: [<span class="string">'**/*.js'</span>, <span class="string">'**/*.jsx'</span>, <span class="string">'**/*.tsx'</span>, <span class="string">'**/*.ts'</span>],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><h4 id="修改-package-json-1"><a href="#修改-package-json-1" class="headerlink" title="修改 package.json"></a>修改 package.json</h4><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"></span><span class="mac-panel__language">DIFF</span></header><figure class="iseeu highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">  "scripts": &#123;</span><br><span class="line"><span class="addition">+   "lint:stylelint": "stylelint \"**/*.&#123;vue,postcss,css,scss&#125;\" --fix",</span></span><br><span class="line"><span class="deletion">-   "lint": "yarn lint:eslint"</span></span><br><span class="line"><span class="addition">+   "lint": "yarn lint:eslint &amp;&amp; yarn lint:stylelint"</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></div><h3 id="commitlint-以及-husky-lint-staged-配置"><a href="#commitlint-以及-husky-lint-staged-配置" class="headerlink" title="commitlint 以及 husky / lint-staged 配置"></a>commitlint 以及 husky / lint-staged 配置</h3><h4 id="安装依赖-1"><a href="#安装依赖-1" class="headerlink" title="安装依赖"></a>安装依赖</h4><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"></span><span class="mac-panel__language">SHELL</span></header><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yarn add --dev commitizen @commitlint/cli @commitlint/config-conventional commitlint-config-cz cz-conventional-changelog cz-customizable lint-staged</span><br></pre></td></tr></table></figure></div><h4 id="配置-husky"><a href="#配置-husky" class="headerlink" title="配置 husky"></a>配置 husky</h4><p>参照<a href="https://typicode.github.io/husky/#/?id=install" target="_blank" rel="noopener">官方文档</a>，安装<code>husky</code>并启用<code>git hooks</code></p><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"></span><span class="mac-panel__language">SHELL</span></header><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx husky install</span><br></pre></td></tr></table></figure></div><p>修改<code>package.json</code></p><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"></span><span class="mac-panel__language">DIFF</span></header><figure class="iseeu highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  "scripts": &#123;</span><br><span class="line"><span class="addition">+    "prepare": "husky install"</span></span><br><span class="line"><span class="addition">+    "commit": "git-cz"</span></span><br><span class="line">  &#125;,</span><br><span class="line"><span class="addition">+ "config": &#123;</span></span><br><span class="line"><span class="addition">+   "commitizen": &#123;</span></span><br><span class="line"><span class="addition">+     "path": "node_modules/cz-customizable"</span></span><br><span class="line"><span class="addition">+  &#125;</span></span><br><span class="line"><span class="addition">+ &#125;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><p>添加<code>commit</code>规范相关的<code>git hooks</code></p><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"></span><span class="mac-panel__language">SHELL</span></header><figure class="iseeu highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx husky add .husky/commit-msg 'yarn commitlint --edit "$1"'</span><br></pre></td></tr></table></figure></div><p>创建<code>.cz-config.js</code>，自定义想要的提交格式。</p><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"></span><span class="mac-panel__language">JS</span></header><figure class="iseeu highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">'use strict'</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  types: [</span><br><span class="line">    &#123;</span><br><span class="line">      value: <span class="string">'feat'</span>,</span><br><span class="line">      name: <span class="string">'✨  feat:         添加新功能'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      value: <span class="string">'fix'</span>,</span><br><span class="line">      name: <span class="string">'🐞  fix:          修复bug'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      value: <span class="string">'style'</span>,</span><br><span class="line">      name: <span class="string">'💅  style:        代码格式变动, 不影响代码功能的更改(修改空格/格式化代码等操作)'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      value: <span class="string">'docs'</span>,</span><br><span class="line">      name: <span class="string">'📚  docs:         修改文档'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      value: <span class="string">'test'</span>,</span><br><span class="line">      name: <span class="string">'🏁  test:         新增或修改测试用例'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      value: <span class="string">'refactor'</span>,</span><br><span class="line">      name: <span class="string">'🛠   refactor:     既不是新增功能，也不是修改bug的代码变动'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    &#123;</span><br><span class="line">      value: <span class="string">'chore'</span>,</span><br><span class="line">      name: <span class="string">'🗯   chore:        更改环境配置相关文件'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      value: <span class="string">'revert'</span>,</span><br><span class="line">      name: <span class="string">'⏪  revert:       版本回退'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      value: <span class="string">'ui'</span>,</span><br><span class="line">      name: <span class="string">'✏️   ui:           只更新css样式，不涉及任何业务功能的修改'</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">  scopes: [],</span><br><span class="line">  allowCustomScopes: <span class="literal">true</span>,</span><br><span class="line">  allowBreakingChanges: [<span class="string">'feat'</span>, <span class="string">'fix'</span>],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><p>如此，执行<code>yarn commit</code>命令，会出现以下效果<br><img src="/blog/img/commitizen.jpg" alt="commitizen"><br>方向键选择要提交的类型，确定后输入提交的信息即可。当然如果你更喜欢命令行直接提交也是可以的，新建文件<code>commitlint.config.js</code></p><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"></span><span class="mac-panel__language">JS</span></header><figure class="iseeu highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  ignores: [<span class="function">(<span class="params">commit</span>) =&gt;</span> commit.includes(<span class="string">'init'</span>)],</span><br><span class="line">  extends: [<span class="string">'@commitlint/config-conventional'</span>, <span class="string">'cz'</span>],</span><br><span class="line">  parserPreset: &#123;</span><br><span class="line">    parserOpts: &#123;</span><br><span class="line">      headerPattern: <span class="regexp">/^(\w*|[\u4e00-\u9fa5]*)(?:[\(\（](.*)[\)\）])?[\:\：] (.*)/</span>,</span><br><span class="line">      headerCorrespondence: [<span class="string">'type'</span>, <span class="string">'scope'</span>, <span class="string">'subject'</span>],</span><br><span class="line">      referenceActions: [</span><br><span class="line">        <span class="string">'close'</span>,</span><br><span class="line">        <span class="string">'closes'</span>,</span><br><span class="line">        <span class="string">'closed'</span>,</span><br><span class="line">        <span class="string">'fix'</span>,</span><br><span class="line">        <span class="string">'fixes'</span>,</span><br><span class="line">        <span class="string">'fixed'</span>,</span><br><span class="line">        <span class="string">'resolve'</span>,</span><br><span class="line">        <span class="string">'resolves'</span>,</span><br><span class="line">        <span class="string">'resolved'</span>,</span><br><span class="line">      ],</span><br><span class="line">      issuePrefixes: [<span class="string">'#'</span>],</span><br><span class="line">      noteKeywords: [<span class="string">'BREAKING CHANGE'</span>],</span><br><span class="line">      fieldPattern: <span class="regexp">/^-(.*?)-$/</span>,</span><br><span class="line">      revertPattern: <span class="regexp">/^Revert\s"([\s\S]*)"\s*This reverts commit (\w*)\./</span>,</span><br><span class="line">      revertCorrespondence: [<span class="string">'header'</span>, <span class="string">'hash'</span>],</span><br><span class="line">      warn() &#123;&#125;,</span><br><span class="line">      mergePattern: <span class="literal">null</span>,</span><br><span class="line">      mergeCorrespondence: <span class="literal">null</span>,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  rules: &#123;</span><br><span class="line">    <span class="string">'body-leading-blank'</span>: [<span class="number">2</span>, <span class="string">'always'</span>],</span><br><span class="line">    <span class="string">'footer-leading-blank'</span>: [<span class="number">1</span>, <span class="string">'always'</span>],</span><br><span class="line">    <span class="string">'header-max-length'</span>: [<span class="number">2</span>, <span class="string">'always'</span>, <span class="number">108</span>],</span><br><span class="line">    <span class="string">'subject-empty'</span>: [<span class="number">2</span>, <span class="string">'never'</span>],</span><br><span class="line">    <span class="string">'type-empty'</span>: [<span class="number">2</span>, <span class="string">'never'</span>],</span><br><span class="line">    <span class="string">'type-enum'</span>: [</span><br><span class="line">      <span class="number">2</span>,</span><br><span class="line">      <span class="string">'always'</span>,</span><br><span class="line">      [</span><br><span class="line">        <span class="string">'feat'</span>, <span class="comment">// 增加新功能</span></span><br><span class="line">        <span class="string">'fix'</span>, <span class="comment">// 修复 bug</span></span><br><span class="line">        <span class="string">'style'</span>, <span class="comment">// 修改不影响功能的代码格式（注意是代码格式，不是 css 样式）</span></span><br><span class="line">        <span class="string">'docs'</span>, <span class="comment">// 新增文档</span></span><br><span class="line">        <span class="string">'test'</span>, <span class="comment">// 新增测试用例</span></span><br><span class="line">        <span class="string">'refactor'</span>, <span class="comment">// 重构（既不是新增功能，也不是修改bug的代码变动）</span></span><br><span class="line">        <span class="string">'chore'</span>, <span class="comment">// 构建过程或辅助工具的变动</span></span><br><span class="line">        <span class="string">'revert'</span>, <span class="comment">// 版本回退</span></span><br><span class="line">        <span class="string">'ui'</span>, <span class="comment">// 只更新css样式，不涉及任何业务功能的修改</span></span><br><span class="line">      ],</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><p>具体规则可以查阅相关文档。需要注意的是，<code>rules</code>中的<code>type-enum</code>选项，一旦定义了，提交的信息就必须以规定过的<code>type</code>来开头。否则都会出现 error，阻止本次提交。简单来说，<code>commitlint</code>目的就是让开发者每次提交都按照规定，上面规则规定了提交的形式为<code>type: xxxxx</code>(注意冒号之后有空格)，其中 <code>type</code> 为上述定义的 type，这也是绝大部分开发者习惯的提交方式。</p><p>参考<a href="https://github.com/okonet/lint-staged#configuration" target="_blank" rel="noopener">lint-staged官方文档</a>，根目录添加<code>lint-staged.config.js</code></p><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"></span><span class="mac-panel__language">JS</span></header><figure class="iseeu highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="string">'*.&#123;js,jsx,ts,tsx,vue&#125;'</span>: [<span class="string">'npm run lint'</span>],</span><br><span class="line">  <span class="string">'package.json'</span>: [<span class="string">'prettier --write'</span>],</span><br><span class="line">  <span class="string">'*.&#123;css,scss,less,styl,html&#125;'</span>: [<span class="string">'stylelint --fix'</span>, <span class="string">'prettier --write'</span>],</span><br><span class="line">  <span class="string">'*.md'</span>: [<span class="string">'prettier --write'</span>],</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><p>修改<code>pre-commit</code></p><div class="code-panel__wrapper" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"><header class="mac-panel"><span class="doc-path"></span><span class="mac-panel__language">DIFF</span></header><figure class="iseeu highlight diff"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="deletion">-  yarn lint</span></span><br><span class="line"><span class="addition">+  yarn lint-staged --allow-empty "$1"</span></span><br></pre></td></tr></table></figure></div><h2 id="end"><a href="#end" class="headerlink" title="end"></a>end</h2><p>如此，一个基本的开发架构就搭建完成了，没有规矩，不成方圆。这一篇主要制定了一系列开发规范来约束开发习惯，在我看来，团队合作开发，个人能力是不及规范来得重要的。我们规范了项目结构，规范了代码结构，规定了提交结构。接下来，<strong>工欲善其事必先利其器，下一节专门说说 vscode 的相关配置</strong></p></div><div><div style="text-align:center;color: #ccc;font-size:14px;"> ------ 本文结束<i class="fa fa-paw"></i>感谢您的阅读 ------</div></div><div><div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;"><div>您的支持将鼓励我继续创作！</div> <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}"> <span>打赏</span></button><div id="QR" style="display: none;"><div id="wechat" style="display: inline-block"> <img id="wechat_qr" src="/blog/images/qrCode.png" alt="lost-dream 微信支付"><p>微信支付</p></div></div></div></div><footer class="post-footer"><div class="post-tags"><a href="/blog/tags/vue3/" rel="tag"><i class="fa fa-tag"></i> vue3</a><a href="/blog/tags/vite/" rel="tag"><i class="fa fa-tag"></i> vite</a></div><div class="post-nav"><div class="post-nav-next post-nav-item"><a href="/blog/2021/06/03/grid/" rel="next" title="Css Grid 语法总结"><i class="fa fa-chevron-left"></i> Css Grid 语法总结</a></div><span class="post-nav-divider"></span><div class="post-nav-prev post-nav-item"></div></div></footer></div></article><div class="post-spread"></div></div></div><div class="comments" id="comments"></div></div><div class="sidebar-toggle"><div class="sidebar-toggle-line-wrap"><span class="sidebar-toggle-line sidebar-toggle-line-first"></span><span class="sidebar-toggle-line sidebar-toggle-line-middle"></span><span class="sidebar-toggle-line sidebar-toggle-line-last"></span></div></div><aside id="sidebar" class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap"> 文章目录</li><li class="sidebar-nav-overview" data-target="site-overview"> 站点概览</li></ul><section class="site-overview sidebar-panel"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"> <img class="site-author-image" itemprop="image" src="/blog/images/touxiang.jpg" alt="lost-dream"><p class="site-author-name" itemprop="name">lost-dream</p><p class="site-description motion-element" itemprop="description" style="margin-bottom: 0">爱前端，爱技术，爱所有值得去爱的一切</p></div><div class="sidebar-clock"><svg><text text-anchor="middle" x="50%" y="80%" class="words words-1"/><text text-anchor="middle" x="50%" y="80%" class="words words-2"/><text text-anchor="middle" x="50%" y="80%" class="words words-3"/><text text-anchor="middle" x="50%" y="80%" class="words words-4"/></svg></div><script src="/blog/js/src/sidebar-clock.js"></script><nav class="site-state motion-element"><div class="site-state-item site-state-posts"> <a href="/blog/archives"><span class="site-state-item-count">38</span> <span class="site-state-item-name">日志</span></a></div><div class="site-state-item site-state-categories"> <a href="/blog/categories/index.html"><span class="site-state-item-count">22</span> <span class="site-state-item-name">分类</span></a></div><div class="site-state-item site-state-tags"> <a href="/blog/tags/index.html"><span class="site-state-item-count">36</span> <span class="site-state-item-name">标签</span></a></div></nav><div class="links-of-author motion-element"></div></section><section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active"><div class="post-toc"><div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#hello-world"><span class="nav-number">1.</span> <span class="nav-text">hello, world</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#修改项目结构"><span class="nav-number">2.</span> <span class="nav-text">修改项目结构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#添加开发规范"><span class="nav-number">3.</span> <span class="nav-text">添加开发规范</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#eslint-prettier"><span class="nav-number">3.1.</span> <span class="nav-text">eslint / prettier</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装"><span class="nav-number">3.1.1.</span> <span class="nav-text">安装</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建配置文件"><span class="nav-number">3.1.2.</span> <span class="nav-text">创建配置文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改-package-json"><span class="nav-number">3.1.3.</span> <span class="nav-text">修改 package.json</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#stylelint"><span class="nav-number">3.2.</span> <span class="nav-text">stylelint</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装依赖"><span class="nav-number">3.2.1.</span> <span class="nav-text">安装依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建stylelint-config-js"><span class="nav-number">3.2.2.</span> <span class="nav-text">创建stylelint.config.js</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#修改-package-json-1"><span class="nav-number">3.2.3.</span> <span class="nav-text">修改 package.json</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#commitlint-以及-husky-lint-staged-配置"><span class="nav-number">3.3.</span> <span class="nav-text">commitlint 以及 husky / lint-staged 配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#安装依赖-1"><span class="nav-number">3.3.1.</span> <span class="nav-text">安装依赖</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置-husky"><span class="nav-number">3.3.2.</span> <span class="nav-text">配置 husky</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#end"><span class="nav-number">4.</span> <span class="nav-text">end</span></a></li></ol></div><div class="sidebar-clock"><svg><text text-anchor="middle" x="50%" y="80%" class="words words-1"/><text text-anchor="middle" x="50%" y="80%" class="words words-2"/><text text-anchor="middle" x="50%" y="80%" class="words words-3"/><text text-anchor="middle" x="50%" y="80%" class="words words-4"/></svg></div><script src="/blog/js/src/sidebar-clock.js"></script></div></section><script type="text/javascript" charset="utf-8" src="/blog/js/tagcloud.js"></script><script type="text/javascript" charset="utf-8" src="/blog/js/tagcanvas.js"></script><div class="widget-wrap"><h3 class="widget-title" style="margin-bottom: 0;margin-top: 0;">tags</h3><div id="myCanvasContainer" class="widget tagcloud"><canvas width="220" height="220" id="resCanvas"><ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Eslint/">Eslint</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/GitHub/">GitHub</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/NodeJs/">NodeJs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Prettier/">Prettier</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Vue/">Vue</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Vuex/">Vuex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/WeChat/">WeChat</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/adminUI/">adminUI</a><span class="tag-list-count">6</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/animate/">animate</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/audio/">audio</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/axios/">axios</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/blog/">blog</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/cache/">cache</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/carousel/">carousel</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/compress/">compress</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/css/">css</a><span class="tag-list-count">4</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/css3/">css3</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/draggable/">draggable</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/es6/">es6</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/es6/">es6+</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/fs模块/">fs模块</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/git/">git</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/html5/">html5</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/javascript/">javascript</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mac/">mac</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/markdown/">markdown</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/nodeJs/">nodeJs</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/promise/">promise</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/sass/">sass</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/video/">video</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vite/">vite</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vscode/">vscode</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vue/">vue</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vue3/">vue3</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/vuex/">vuex</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/webpack/">webpack</a><span class="tag-list-count">4</span></li></ul></canvas></div></div></div></aside></div></main><footer id="footer" class="footer"><div class="footer-inner"><div class="copyright"> &copy; <span itemprop="copyrightYear">2021</span><span class="with-love"><i class="fa fa-heart"></i></span> <span class="author" itemprop="copyrightHolder">Powered By Lost Dream</span></div><div class="powered-by"> 个人专属</div> <span class="post-meta-divider">|</span><div class="theme-info">杜绝抄袭</div></div></footer><div class="back-to-top"><i class="fa fa-arrow-up"></i> <span id="scrollpercent"><span>0</span>%</span></div></div><script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script><script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script><script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script><script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script><script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script><script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script><script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script><script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/clipboard.min.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/clipboard-use.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/affix.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/schemes/pisces.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.2"></script><script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.2"></script><link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css"><script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script><script src="https://priesttomb.github.io/js/md5.min.js"></script><style>
+    #gitalk-container {
+      position: relative;
+      width: 75%;
+      background: #fff;
+      z-index: 99999;
+      margin: 0 auto;
+      box-shadow: 0 2px 2px 0 rgb(0 0 0 / 12%), 0 3px 1px -2px rgb(0 0 0 / 6%), 0 1px 5px 0 rgb(0 0 0 / 12%), 0 -1px 0.5px 0 rgb(0 0 0 / 9%);
+      box-sizing: border-box;
+      padding: 0 30px;
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+      #gitalk-container {
+        width: auto;
+      }
+    }
+
+
+    @media (min-width: 1600px) {
+      #gitalk-container {
+        width: 75%;
+      }
+    }
+
+    @media (max-width: 767px) {
+      #gitalk-container {
+        width: calc(100% - 40px);
+      }
+    }
+  </style><div id="gitalk-container"></div><script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '596ac7728fd178ed4d4e',
+      clientSecret: '5f75ee1fd71fb39ef53b4e3809324d1cbb5bf1d1',
+      repo: 'lost-dream.github.io',
+      owner: 'lost-dream',
+      admin: ['lost-dream'],
+      id: location.pathname,
+      distractionFreeMode: 'true'
+    })
+    gitalk.render('gitalk-container')
+  </script><script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/blog/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script><script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script><script>AV.initialize("j09L0uYIPRJK0N5spx2c0QOL-gzGzoHsz", "tkexYWWbD9CLEFuojFy1uPRN");</script><script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script><script src="/blog/js/src/cursor/fireworks.js"></script><canvas id="canvas" width="1440" height="900"></canvas><script type="text/javascript" src="/blog/js/src/DigitalRain.js?v=5.1.2"></script><script src="/blog/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"model":{"scale":1,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/blog/live2dw/assets/z16.model.json"},"display":{"superSample":2,"width":225,"height":450,"position":"left","hOffset":0,"vOffset":-20},"mobile":{"show":false,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","log":false,"tagMode":false});</script></body></html>
